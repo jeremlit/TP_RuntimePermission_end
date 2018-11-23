@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     // Si oui, mieux vaux ne pas la redemander ... Nous pouvons prévoir un message d'information par exemple
                     // Sinon, vous pouvez demander la permission à l’aide de la méthode ActivityCompat.requestPermissions.
                     if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                            Manifest.permission.CAMERA)) {
+                            Manifest.permission.READ_CONTACTS)) {
                         informationDialog();
                     }
 
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     // Si oui, mieux vaux ne pas la redemander ... Nous pouvons prévoir un message d'information par exemple
                     // Sinon, vous pouvez demander la permission à l’aide de la méthode ActivityCompat.requestPermissions.
                     if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                            Manifest.permission.CAMERA)) {
+                            Manifest.permission.WRITE_CONTACTS)) {
                         informationDialog();
                     }
 
