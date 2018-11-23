@@ -111,17 +111,16 @@ public class MainActivity extends AppCompatActivity {
                     // demandée par l’utilisateur.
                     // Si oui, mieux vaux ne pas la redemander ... Nous pouvons prévoir un message d'information par exemple
                     // Sinon, vous pouvez demander la permission à l’aide de la méthode ActivityCompat.requestPermissions.
-                    if (!ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
                             Manifest.permission.CAMERA)) {
-                        openSettingsDialog();
-                    } else {
-
-                        /* Demande à l'utilisateur d'autoriser la runtime permission:
-                            Ouverture d'une boîte de dialogue: Autoriser ou non */
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.CAMERA},
-                                PERMISSION_REQUEST_CODE);
+                        informationDialog();
                     }
+
+                    //Demande à l'utilisateur d'autoriser la runtime permission: Ouverture d'une boîte de dialogue: Autoriser ou non
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.CAMERA},
+                            PERMISSION_REQUEST_CODE);
+
                 } else {
                     Toast.makeText(MainActivity.this,
                             "Manifest.permission.CAMERA permission déjà accordée", Toast.LENGTH_LONG).show();
@@ -147,17 +146,17 @@ public class MainActivity extends AppCompatActivity {
                     // demandée par l’utilisateur.
                     // Si oui, mieux vaux ne pas la redemander ... Nous pouvons prévoir un message d'information par exemple
                     // Sinon, vous pouvez demander la permission à l’aide de la méthode ActivityCompat.requestPermissions.
-                    if (!ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                            Manifest.permission.READ_CONTACTS)) {
-                        openSettingsDialog();
-                    } else {
-
-                        /* Demande à l'utilisateur d'autoriser la runtime permission:
-                            Ouverture d'une boîte de dialogue: Autoriser ou non */
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.READ_CONTACTS},
-                                PERMISSION_REQUEST_CODE);
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                            Manifest.permission.CAMERA)) {
+                        informationDialog();
                     }
+
+
+                    /* Demande à l'utilisateur d'autoriser la runtime permission:
+                            Ouverture d'une boîte de dialogue: Autoriser ou non */
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.READ_CONTACTS},
+                            PERMISSION_REQUEST_CODE);
                 } else {
                     Toast.makeText(MainActivity.this,
                             "Manifest.permission.READ_CONTACTS permission déjà accordée", Toast.LENGTH_LONG).show();
@@ -183,17 +182,18 @@ public class MainActivity extends AppCompatActivity {
                     // demandée par l’utilisateur.
                     // Si oui, mieux vaux ne pas la redemander ... Nous pouvons prévoir un message d'information par exemple
                     // Sinon, vous pouvez demander la permission à l’aide de la méthode ActivityCompat.requestPermissions.
-                    if (!ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                            Manifest.permission.WRITE_CONTACTS)) {
-                        openSettingsDialog();
-                    } else {
-
-                        /* Demande à l'utilisateur d'autoriser la runtime permission:
-                            Ouverture d'une boîte de dialogue: Autoriser ou non */
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.WRITE_CONTACTS},
-                                PERMISSION_REQUEST_CODE);
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                            Manifest.permission.CAMERA)) {
+                        informationDialog();
                     }
+
+
+                    /* Demande à l'utilisateur d'autoriser la runtime permission:
+                            Ouverture d'une boîte de dialogue: Autoriser ou non */
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.WRITE_CONTACTS},
+                            PERMISSION_REQUEST_CODE);
+
                 } else {
                     Toast.makeText(MainActivity.this,
                             "Manifest.permission.WRITE_CONTACTS permission déjà accordée", Toast.LENGTH_LONG).show();
@@ -212,7 +212,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Demande de trois permissions
         Button multipleRequestedPermissionButton = (Button) findViewById(R.id.btn_plusieurs_permissions);
-        multipleRequestedPermissionButton.setOnClickListener(new View.OnClickListener() {
+        multipleRequestedPermissionButton.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
                 // Liste de permissions à demander
@@ -244,8 +246,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     // Affichage de l'ensemble des permissions accordées pour cette application TP_runtimepermission
@@ -286,6 +286,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 101);
             }
         });
+        builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
+
+    private void informationDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Permissions requises");
+        builder.setMessage("Vous avez refusé la permission pour cette fonctionnalité. Veuillez l'autoriser si vous souhaitez l'utiliser");
         builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
